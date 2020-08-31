@@ -1,1 +1,1 @@
-# ShinHeeJin-nginx-flask-gunicorn-letsencrypt-dockerizing
+# nginx-flask-gunicorn-letsencrypt-dockerizing
