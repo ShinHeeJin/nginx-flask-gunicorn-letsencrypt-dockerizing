@@ -1,0 +1,9 @@
+Flask==1.0.2
+Flask-SQLAlchemy==2.4.4
+Flask-Bootstrap==3.3.7.1
+Flask-WTF==0.14.3
+gunicorn==20.0.4
+JPype1==1.0.2
+konlpy==0.5.2
+python-dotenv==0.8.2
+mysql-connector-python==8.0.21

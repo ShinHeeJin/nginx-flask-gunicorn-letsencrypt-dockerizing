@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}형태소 분석 테스트{% endblock %}
+
+{% block page_content %}
+    <h2>형태소 분석기
+        <a href="{{ url_for('main.db_test') }}" class="btn btn-primary">DB테스트</a>
+        <a href="{{ url_for('main.ping') }}" class="btn btn-success">ping테스트</a>
+    </h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            {{ wtf.quick_form(form)}}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            결과 : {{tokenized_sentence}}
+        </div>
+    </div>
+{% endblock %}
+

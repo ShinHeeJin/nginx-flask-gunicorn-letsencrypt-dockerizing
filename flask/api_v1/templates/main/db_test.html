@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}형태소 분석 테스트{% endblock %}
+
+{% block page_content %}
+    <h2>데이터 베이스 테스트
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary">홈으로</a>
+    </h2>
+    <p>새로고침 클릭!</p>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            {{mytable_cnt}} 개
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% for table in mytables %}
+                {{table.id}} | {{table.test}}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

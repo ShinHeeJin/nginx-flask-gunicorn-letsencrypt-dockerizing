@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+
+    flask:
+        container_name: flask
+        restart: unless-stopped
+        build: ./flask
+        ports: 
+            - "5000:5000"
+        command: gunicorn -w 1 -b :5000 wsgi
+
+    nginx:
+        container_name: nginx
+        image: nginx:1.16.1
+        restart: unless-stopped
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./data/nginx:/etc/nginx/conf.d
+            - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbot/www:/var/www/certbot
+            
+        # you need to make sure that nginx reloads the newly obtained certificates
+        command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+        # After nginx runs first, flask runs. 
+        depends_on:
+            - flask
+    
+    certbot:
+        image: certbot/certbot
+        volumes:
+            - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbot/www:/var/www/certbot
+        
+        # This will check if your certificate is up for renewal every 12 hours as recommended by Let’s Encrypt.
+        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
